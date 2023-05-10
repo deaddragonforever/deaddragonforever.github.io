@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="../GPT-4_6k.ico">
+    <meta charset="UTF-8">
+    <title>my code</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="myself_code.css">
+    <!-- 引入脚本文件 -->
+    <script src="myself_code.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+<h1>普通问答模式</h1>
+<pre><code class="python">
+        import openai
+        KEY = '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'
+        def QA_mode():
+            print("欢迎使用被张懿龙入侵的GPT-3.5【普通问答模式】\n")
+            index = 0
+            while 1:
+                "***************************************************************************************"
+                content = input("问：")
+
+                model = ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"]  # 为了能在一分钟回答6个，轮流回答模型
+                index = 1 - index
+                openai.api_key = KEY
+                response = openai.ChatCompletion.create(
+                    model=model[index],
+                    messages=[
+                        {"role": "user", "content": content}
+                    ],
+                    temperature=0.5,  # 随机
+                    max_tokens=3000,  # 最长令牌 4096
+                    top_p=0.5,  # 随机
+                    frequency_penalty=1,  # 减少使用频率高的单词
+                    presence_penalty=1,  # 减少使用频率高的话题
+                )
+                response = response.choices[0].message.content
+                "***************************************************************************************"
+                response = response.replace("。", "。\n").replace("！", "！\n")
+                "*****************************************************"
+                print("答：" + response)
+        if __name__ == "__main__":
+            QA_mode()
+    </code></pre>
+<h1>长对话聊天模式</h1>
+<pre><code class="python">
+        import openai
+        KEY = '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'
+        def Count_tokens(data):  # 计算汉字数量
+            sum = 0
+            for i in data:
+                sum += len(i["content"])
+            return sum
+        def Remove_tokens(data):  # 删除前面的对话
+            for i in range(4):
+                data.pop(1)
+        def Chat_mode():
+            print("欢迎使用被张懿龙入侵的GPT-3.5【长对话聊天模式】\n")
+            index = 0
+            data = []
+            system = {"role": "system", "content": ""}
+            data.append(system)  # 添加系统设定
+            while 1:
+                content = input("问：")
+                count = Count_tokens(data)  # 包含的汉字
+                if count > 1500:  # 如果大于1500
+                    Remove_tokens(data)  # 移除最早的四条对话
+                u = {"role": "user", "content": content}
+                "***************************************************************************************"
+                data.append(u)  # 添加问题
+                openai.api_key = KEY  # 密钥
+                model = ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"]  # 为了能在一分钟回答6个，轮流回答模型
+                index = 1 - index
+                response = openai.ChatCompletion.create(
+                    model=model[index],
+                    messages=data,
+                    temperature=1,  # 随机
+                    max_tokens=1024,  # 最长令牌 4096
+                    top_p=1,  # 随机
+                    frequency_penalty=1,  # 减少使用频率高的单词
+                    presence_penalty=1,  # 减少使用频率高的话题
+                )
+                response = response.choices[0].message.content
+                a = {"role": "assistant", "content": response}
+                data.append(a)  # 添加回复
+                "***************************************************************************************"
+                response = response.replace("。", "。\n").replace("！", "！\n")  # 句号换行
+                "*****************************************************"
+                print("答：" + response)  # 输出
+        if __name__ == "__main__":
+            Chat_mode()
+    </code></pre>
+
+</body>
+</html>
