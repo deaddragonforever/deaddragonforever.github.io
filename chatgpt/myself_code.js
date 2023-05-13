@@ -1,6 +1,6 @@
 /*!
   Highlight.js v11.2.0 (git: 2a5c592e5e)
-  (c) 2006-2021 Ivan Sagalaev and other contributors
+  (c) 2006-2021 Ivan Sagalaev and webs contributors
   License: BSD-3-Clause
  */
 var hljs = function () {
