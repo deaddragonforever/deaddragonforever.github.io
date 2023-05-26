@@ -1,0 +1,58 @@
+
+/*
+黑绿版本
+悬浮是两条彩色渐变线
+*/
+body {
+    background-color: #121212;
+    color: #00ff00;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.navbar {
+    background-color: black;
+    text-align: center;
+}
+
+.navbar a {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    position: relative;
+}
+
+.navbar a::before,
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.navbar a::before {
+    bottom: 0;
+}
+
+.navbar a::after {
+    top: 0;
+}
+
+.navbar a:hover::before,
+.navbar a:hover::after {
+    transform: scaleX(1);
+}
+
+.navbar h1 {
+    margin: 0;
+    background-color: #00ff00;
+    color: black;
+    font-size: 30px;
+    padding: 14px 16px;
+}
